@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        esta es la secion de empleado #{usuarioController.empleado.nombre} #{usuarioController.empleado.apellido}
+        <h:commandButton value="cerrar" action="#{usuarioController.cerrar()}"/>
+        <p:layout style="min-width:400px;min-height:600px;">
+            <p:layoutUnit position="west" resizable="true" size="100" minSize="40" maxSize="200">
+                <h:commandButton action="#{empleadoController.gestionarProductos()}" image="/Imagenes/Botones/gproductos.png" style="width: 60px;height: 60px" />
+                <h:commandButton action="#{empleadoController.gestionarCotizaciones()}" image="/Imagenes/Botones/botonCotizaciones.png" style="width: 60px;height: 60px" />
+            </p:layoutUnit>
+
+            <p:layoutUnit position="center">
+                <ui:include src="#{empleadoController.paginaActual}" />
+            </p:layoutUnit>
+        </p:layout>
+    </h:body>
+</html>
+

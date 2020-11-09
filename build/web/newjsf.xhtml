@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <h:form>
+            <h:panelGrid columns="1">
+                <h:panelGrid columns="4">
+                    <h:outputText value="Nombre"></h:outputText>
+                    <h:inputText value="#{productoController.producto.nombre}"></h:inputText>
+                    <h:outputText value="Precio"></h:outputText>
+                    <h:inputText value="#{productoController.producto.precio}"></h:inputText>
+                    <h:outputText value="Descripcion"></h:outputText>
+                    <h:inputTextarea rows="2" cols="60" value="#{productoController.producto.descripcion}"></h:inputTextarea>
+                    <h:outputText value="Stock Mínimo"></h:outputText>
+                    <h:inputText value="#{productoController.producto.stockm}"></h:inputText>
+                    <h:commandButton value="+" action="#{productoController.registrar()}"></h:commandButton>
+                </h:panelGrid>
+
+                <h:dataTable var="pro" value="#{productoController.productos}">
+                    <h:column><f:facet name="header">Nombre</f:facet>
+                        <h:outputText value="#{pro.nombre}" title="#{pro.descripcion}"></h:outputText>
+                    </h:column> 
+                    <h:column><f:facet name="header">Precio</f:facet>
+                        <h:outputText value="#{pro.precio}"></h:outputText>
+                    </h:column>
+                    <h:column><f:facet name="header">Estado</f:facet>
+                        <h:outputText value="#{pro.estado}"></h:outputText>
+                    </h:column>
+                    <h:column><f:facet name="header">Stock</f:facet>
+                        <h:outputText value="#{pro.stockm}"></h:outputText>
+                    </h:column> 
+                      <h:column><f:facet name="header">Opciones</f:facet>
+                        <h:commandButton value="C" action="#{productoController.consultar(pro)}"></h:commandButton>
+                        <h:commandButton value="-" action="#{productoController.deshabilitar(pro)}"></h:commandButton>
+                    </h:column> 
+
+
+
+                </h:dataTable>
+
+            </h:panelGrid>
+            <h:commandButton value="Crear empleado" action="#{empleadoController.generarEmpleado()}"></h:commandButton>
+        </h:form>
+    </h:body>
+</html>
+

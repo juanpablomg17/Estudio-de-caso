@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        Gestor de productos
+
+        <p:dialog header="Basic Dialog" widgetVar="dlgp" minWidth="500" minHeight="40">
+            <p:panel>
+                 <p:autoUpdate />
+                 Producto: #{productoController.proImg.nombre}
+                <p:separator/>
+                <p:fileUpload value="#{productoController.filep}" mode="simple" skinSimple="true"/>
+                <h:commandButton value="agregar" action="#{productoController.upload()}" />
+             
+            </p:panel>
+        </p:dialog>
+
+
+
+        <p:panelGrid columns="2">
+            <p:panelGrid columns="4">
+                <h:outputText value="Nombre"/><p:inputText value="#{productoController.producto.nombre}" />
+                <h:outputText value="Descripcion"/><p:inputText value="#{productoController.producto.descripcion}" />
+                <h:outputText value="Precio"/><p:inputText value="#{productoController.producto.precio}" />
+                <h:outputText value="Stock Min"/><p:inputText value="#{productoController.producto.stockm}" />                
+            </p:panelGrid>  
+
+             <h:graphicImage style="width: 150px;height: 100px" value="/Imagenes/Productos/#{productoController.producto.id}.png"/>
+        </p:panelGrid>
+        <h:commandButton action="#{productoController.registrar()}" image="/Imagenes/Botones/botonGuardar.png" style="width: 40px;height: 40px" value="guardar" />            
+        <h:commandButton action="#{productoController.nuevoProducto()}" image="/Imagenes/Botones/botonNuevo.png" style="width: 40px;height: 40px" value="guardar" />            
+        <p:dataTable var="pro" value="#{productoController.productos}">
+            <p:column headerText="Nombre">
+                #{pro.nombre}
+            </p:column>
+            <p:column headerText="Descripcion">
+                #{pro.descripcion}
+            </p:column>
+            <p:column headerText="Precio">
+                #{pro.precio}
+            </p:column>
+            <p:column headerText="Opciones">
+                  <h:commandButton action="#{productoController.consultar(pro)}" image="/Imagenes/Botones/botonBuscar.png" style="width: 40px;height: 40px" />            
+
+
+                  <p:commandLink onclick="PF('dlgp').show();" action="#{productoController.consultarProductoDB(pro)}" >
+                    <p:graphicImage style="width: 40px;height: 40px; margin-left:  10px" value="/Imagenes/Botones/botonSubir.png" />
+                </p:commandLink>
+                  
+                  <h:commandButton action="#{productoController.eliminar(pro)}" image="/Imagenes/Botones/botonBorrar.png" style="width: 40px;height: 40px" />            
+            </p:column>
+        </p:dataTable>
+
+
+
+    </h:body>
+</html>
+

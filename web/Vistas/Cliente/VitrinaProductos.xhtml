@@ -1,0 +1,80 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <p:dataGrid var="pro" value="#{productoController.productos}">
+            <p:panel header="#{pro.estado}">
+                <div class="grid-container">
+                    <div class="anom">#{pro.nombre}</div>
+                    <div class="imap"><h:graphicImage style="width: 150px;height: 100px" value="/Imagenes/Productos/#{pro.id}.png"/></div>
+                    <div class="aprecio"><h:outputText value="#{pro.precio}" style="color: #D20005;font-size: 14pt" /></div>
+                    <div class="astock">#{pro.stockm}<h:commandButton value="+" action="#{cotizacionController.agregarProducto(pro)}" /></div>
+                </div>
+            </p:panel>
+        </p:dataGrid>
+
+        <p:dataTable id="tdet" rendered="#{not empty cotizacionController.detalles}" var="det" value="#{cotizacionController.detalles}">
+            <p:column headerText="Producto">
+               #{det.producto.nombre}
+            </p:column>
+            <p:column headerText="Precio">
+               #{det.producto.precio}
+            </p:column>
+            <p:column headerText="Cantidad">
+                <p:spinner value="#{det.cantidad}" min="1" max="100"  >
+                    <p:ajax update="tdet" process="@this"></p:ajax>
+                </p:spinner>
+            </p:column>
+            <p:column headerText="Propuesta">
+                <p:inputText value="#{det.propuesta}" required="true" >
+                    <p:ajax event="keyup" update="tdet"></p:ajax>
+                </p:inputText>
+            </p:column>
+            <p:column headerText="Sub total">
+                #{det.subtotal()}
+            </p:column>
+            <p:column  headerText="Sub Total Propuesto">
+                #{det.subtotalP()}
+            </p:column>
+             <p:column headerText="Opcionesl">
+                  <h:commandButton title="Quitar cotización" action="#{cotizacionController.quitar(det)}" value="Quitar" image="/Imagenes/Botones/botonBorrar.png" style="width: 40px; height: 40px"></h:commandButton>
+                  
+             </p:column>
+            
+          
+           
+        </p:dataTable>
+        
+         <h:commandButton title="Cotizar" action="#{cotizacionController.almacenarCotizacion()}" image="/Imagenes/Botones/botonEnvio.png" style="width: 40px; height: 40px;" />
+        <p:growl/>
+        
+        
+        <style>
+            .grid-container {
+                display: grid;
+                grid-template-columns: 100px 100px 100px;
+                grid-template-rows: 100px 100px 100px;
+                gap: 0px 0px;
+                grid-template-areas:
+                    "imap imap aprecio"
+                    "imap imap astock"
+                    "anom anom anom";
+            }
+
+            .anom { grid-area: anom; }
+
+            .imap { grid-area: imap; }
+
+            .aprecio { grid-area: aprecio; }
+
+            .astock { grid-area: astock; }
+
+        </style>
+    </h:body>
+</html>
+
